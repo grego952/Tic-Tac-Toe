@@ -33,17 +33,16 @@ public class Handler {
             button.setText("X");
 
             round++;
-
+            makeComputerMove();
             button.setDisable(true);
+
             label.setText(String.valueOf(round));
 
             String status = calculateGameStatus();
-
             gameStatus.setText(status);
 
-            makeComputerMove();
-
         });
+
     }
 
     public String calculateGameStatus() {
@@ -145,25 +144,54 @@ public class Handler {
 
     public void makeComputerMove() {
 
-            Random random = new Random();
-            List<Button> emptyButtons = new ArrayList<>();
+        Random random = new Random();
+        List<Button> emptyButtons = new ArrayList<>();
 
-            for (Button button : buttons) {
-
-                if (!button.getText().equals("")) { // tutaj chciałem, żeby button się wyłączał, gdy button nie będzie pusty
-                    button.setDisable(true);
-                }
-
-             if (button.getText().equals("")) {
-                    emptyButtons.add(button);
-                }
+        for (Button button : buttons) {
+            if (button.getText().equals("O")) {
+                button.setDisable(true);
             }
 
-            for (Button button : buttons) {
-                if (button.getText().equals("X")) {
-                    emptyButtons.get(random.nextInt(emptyButtons.size())).setText("O"); // a to działa, wstawia randomowo buttony z "O", ale nie do końca rozumiem jak to działa.
-                    buttons.add(button);
-                }
+            if (button.getText().equals("")) {
+                emptyButtons.add(button);
             }
         }
+        emptyButtons.get(random.nextInt(emptyButtons.size())).setText("O");
+        if (buttons.get(0).getText().equals("O")) {
+            buttons.get(0).setDisable(true);
+
+        }
+        if (buttons.get(1).getText().equals("O")) {
+            buttons.get(1).setDisable(true);
+
+        }
+        if (buttons.get(2).getText().equals("O")) {
+            buttons.get(2).setDisable(true);
+
+        }
+        if (buttons.get(3).getText().equals("O")) {
+            buttons.get(3).setDisable(true);
+
+        }
+        if (buttons.get(4).getText().equals("O")) {
+            buttons.get(4).setDisable(true);
+
+        }
+        if (buttons.get(5).getText().equals("O")) {
+            buttons.get(5).setDisable(true);
+
+        }
+        if (buttons.get(6).getText().equals("O")) {
+            buttons.get(6).setDisable(true);
+
+        }
+        if (buttons.get(7).getText().equals("O")) {
+            buttons.get(7).setDisable(true);
+
+        }
+        if (buttons.get(8).getText().equals("O")) {
+            buttons.get(8).setDisable(true);
+        }
+
     }
+}
