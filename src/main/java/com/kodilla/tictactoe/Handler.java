@@ -40,9 +40,7 @@ public class Handler {
 
             String status = calculateGameStatus();
             gameStatus.setText(status);
-
         });
-
     }
 
     public String calculateGameStatus() {
@@ -192,6 +190,5 @@ public class Handler {
         if (buttons.get(8).getText().equals("O")) {
             buttons.get(8).setDisable(true);
         }
-
     }
 }
