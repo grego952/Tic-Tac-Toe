@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface ComputerMover {
 
-    List <Field> makeMove (List <Field> current);
+    List<Field> makeMove(List<Field> current);
 }
