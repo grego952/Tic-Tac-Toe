@@ -191,4 +191,8 @@ public class Handler {
             buttons.get(8).setDisable(true);
         }
     }
+    public void drawGameStatus (GameStatus status, Field field) {
+        buttons.get(0).setText(field.getPlayer().toString());
+        label.setText(status.getStatus().toString());
+    }
 }

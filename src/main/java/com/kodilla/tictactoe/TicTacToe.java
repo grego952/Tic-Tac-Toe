@@ -1,12 +1,10 @@
 package com.kodilla.tictactoe;
 
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -24,6 +22,8 @@ public class TicTacToe extends Application {
     Button button7 = new Button();
     Button button8 = new Button();
     Button button9 = new Button();
+
+    Field field = new Field(Field.Player.EMPTY);
 
     public static void main(String[] args) {
         launch(args);
@@ -71,15 +71,19 @@ public class TicTacToe extends Application {
 
         Handler handler = new Handler(label, buttonList);
 
-        handler.mouseHandler(button1);
-        handler.mouseHandler(button2);
-        handler.mouseHandler(button3);
-        handler.mouseHandler(button4);
-        handler.mouseHandler(button5);
-        handler.mouseHandler(button6);
-        handler.mouseHandler(button7);
-        handler.mouseHandler(button8);
-        handler.mouseHandler(button9);
+        List<Field> fields = new ArrayList<>();
+
+        NewHandler newHandler = new NewHandler(label, buttonList, GameStatus.initialGameStatus(), fields, field);
+
+        newHandler.mouseHandler(button1);
+        newHandler.mouseHandler(button2);
+        newHandler.mouseHandler(button3);
+        newHandler.mouseHandler(button4);
+        newHandler.mouseHandler(button5);
+        newHandler.mouseHandler(button6);
+        newHandler.mouseHandler(button7);
+        newHandler.mouseHandler(button8);
+        newHandler.mouseHandler(button9);
 
         grid.add(button1, 0, 0);
         grid.add(button2, 1, 0);
