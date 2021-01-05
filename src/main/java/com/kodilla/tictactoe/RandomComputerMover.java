@@ -1,35 +1,34 @@
 package com.kodilla.tictactoe;
 
-import javafx.scene.control.Button;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class RandomComputerMover implements ComputerMover {
 
-    private List <Field> fields;
 
+    public List<Field> makeMove(List<Field> currentFields) {
 
-    public boolean makeComputerMove() {
+        List<Integer> emptyIndexes = new ArrayList<>();
 
-        Random random = new Random();
-        List<Field> emptyFields = new ArrayList<>();
-
-        for (Field field : fields) {
-
-            if (field.getPlayer() == Field.Player.EMPTY) {
-                emptyFields.add(field);
+        for (int i = 0; i < currentFields.size(); i++) {
+            if (currentFields.get(i).getPlayer() == Field.Player.EMPTY) {
+                emptyIndexes.add(i);
             }
         }
-        boolean move = emptyFields.get(random.nextInt(emptyFields.size())).getPlayer() == Field.Player.O;
 
-        return move;
+        Random random = new Random();
+        int indexToFill = emptyIndexes.get(random.nextInt(emptyIndexes.size()));
+        List<Field> newFields = new ArrayList<>();
 
-    }
+        for (int i = 0; i < currentFields.size(); i++) {
 
-    @Override
-    public List<Field> makeMove(List<Field> current) {
-        return null;
+            if (i == indexToFill) {
+                newFields.add(new Field(Field.Player.O));
+            } else {
+                newFields.add(currentFields.get(i));
+            }
+        }
+        return newFields;
     }
 }

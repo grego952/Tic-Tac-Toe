@@ -6,11 +6,11 @@ import java.util.List;
 public class GameStatus {
 
     private Status status;
-    private List <Field> fields;
+    private List<Field> fields;
     private int round;
     private final ComputerMover computerMover;
 
-    public GameStatus(Status status, List <Field> fields, int round, ComputerMover computerMover) {
+    public GameStatus(Status status, List<Field> fields, int round, ComputerMover computerMover) {
         this.status = status;
         this.fields = fields;
         this.round = round;
@@ -21,7 +21,7 @@ public class GameStatus {
         return status;
     }
 
-    public List <Field> getFields() {
+    public List<Field> getFields() {
         return fields;
     }
 
@@ -39,20 +39,20 @@ public class GameStatus {
 
     public static GameStatus initialGameStatus() {
 
-        List <Field> fields = initializeFields();
+        List<Field> fields = initializeFields();
 
         ComputerMover computerMover = new RandomComputerMover();
 
         return new GameStatus(Status.GAME_ON, fields, 1, computerMover);
     }
 
-    private static List <Field> initializeFields() {
+    private static List<Field> initializeFields() {
 
-        List <Field> emptyFields = new ArrayList<>();
+        List<Field> emptyFields = new ArrayList<>();
 
         for (int i = 0; i < 9; i++) {
-                emptyFields.add(new Field(Field.Player.EMPTY));
-            }
+            emptyFields.add(new Field(Field.Player.EMPTY));
+        }
         return emptyFields;
     }
 
@@ -61,9 +61,9 @@ public class GameStatus {
         List<Field> newFields = current.getFields();
         newFields.set(clickedField, new Field(Field.Player.X));
         Status newStatus = current.calculateStatus();
-        GameStatus newGameStatus = new GameStatus(newStatus, newFields, round++, computerMover);
+        List<Field> newFieldsWithComputerMove = computerMover.makeMove(newFields);
 
-        return newGameStatus;
+        return new GameStatus(newStatus, newFieldsWithComputerMove, round++, computerMover);
 
     }
 
@@ -77,71 +77,46 @@ public class GameStatus {
         if (oWon) {
             return Status.O_WINS;
         }
-        if (round >=9) {
+        if (round >= 9) {
             return Status.DRAW;
         }
         return Status.GAME_ON;
     }
 
     private boolean checkWinCondition(Field.Player player) {
-        boolean rowsWon = checkRows(player);
-        if (rowsWon) {
+        boolean row1Won = checkRow1();
+        if (row1Won) {
             return true;
         }
-        boolean columnsWon = checkColumns(player);
-        if (columnsWon) {
-            return true;
-        }
-        boolean diagonallyWon = checkDiagonally(player);
-
-        if (diagonallyWon) {
-            return true;
-        }
+//        boolean columnsWon = checkColumns(player);
+//        if (columnsWon) {
+//            return true;
+//        }
+//        boolean diagonallyWon = checkDiagonally(player);
+//
+//        if (diagonallyWon) {
+//            return true;
+//        }
         return false;
     }
 
-    private boolean checkDiagonally(Field.Player player) {
-        if (fields.get(0).getPlayer() != player &&
-                fields.get(3).getPlayer() != player &&
-                fields.get(8).getPlayer() != player || fields.get(2).getPlayer() != player &&
-                fields.get(3).getPlayer() != player &&
-                fields .get(6).getPlayer() != player) {
-            return false;
-        }
-        return true;
-    }
+//    private boolean checkDiagonally(Field.Player player) {
+//        if (fields.get(0).getPlayer() != player &&
+//                fields.get(3).getPlayer() != player &&
+//                fields.get(8).getPlayer() != player || fields.get(2).getPlayer() != player &&
+//                fields.get(3).getPlayer() != player &&
+//                fields.get(6).getPlayer() != player) {
+//            return false;
+//        }
+//        return true;
+//    }
 
-    private boolean checkColumns(Field.Player player) {
+    private boolean checkRow1() {
 
-        if (fields.get(0).getPlayer() != player &&
-        fields.get(3).getPlayer() != player &&
-        fields.get(6).getPlayer() != player ||
-        fields.get(1).getPlayer() != player &&
-                fields.get(4).getPlayer() != player &&
-                fields.get(7).getPlayer() != player ||
-                fields.get(2).getPlayer() != player &&
-                        fields.get(5).getPlayer() != player &&
-                        fields.get(8).getPlayer() != player)
-        {
-            return false;
-        }
-        return true;
-    }
-
-    private boolean checkRows(Field.Player player) {
-
-        if (fields.get(0).getPlayer() != player &&
-                fields.get(1).getPlayer() != player &&
-                fields.get(2).getPlayer() != player ||
-                fields.get(3).getPlayer() != player &&
-                        fields.get(4).getPlayer() != player &&
-                        fields.get(5).getPlayer() != player ||
-                fields.get(6).getPlayer() != player &&
-                        fields.get(7).getPlayer() != player &&
-                        fields.get(8).getPlayer() != player)
-        {
-            return false;
-        }
-        return true;
+                   if (fields.get(0).getPlayer() == fields.get(1).getPlayer() &&
+                    fields.get(1).getPlayer() == (fields.get(2).getPlayer())) {
+                return true;
+            }
+        return false;
     }
 }

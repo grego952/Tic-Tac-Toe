@@ -5,58 +5,43 @@ import javafx.scene.control.Label;
 import javafx.scene.text.Font;
 
 import java.util.List;
-import java.util.Random;
 
 public class NewHandler {
 
     private Label label;
     private List<Button> buttons;
-    private List<Field> fields;
     private GameStatus gameStatus;
-    private Field field;
 
-    public NewHandler(Label label, List<Button> buttons, GameStatus gameStatus, List<Field> fields, Field field) {
+    public NewHandler(Label label, List<Button> buttons, GameStatus gameStatus) {
         this.label = label;
         this.buttons = buttons;
         this.gameStatus = gameStatus;
-        this.fields = fields;
-        this.field = field;
-        drawGameStatus(gameStatus, field);
-
     }
 
-    public void mouseHandler(Button button) {
-
-        RandomComputerMover randomComputerMover = new RandomComputerMover();
+    public void mouseHandler(Button button, int buttonIndex) {
 
         button.setFont(Font.font(55.5));
 
         button.setOnMouseClicked(event -> {
 
-            gameStatus.makeMove(gameStatus, 1);
+            GameStatus newGameStatus = gameStatus.makeMove(gameStatus, buttonIndex);
 
-            gameStatus.calculateStatus();
+            this.gameStatus = newGameStatus;
 
-            button.setText(Field.Player.X.toString());
-
-            randomComputerMover.makeComputerMove();
+            drawGameStatus(newGameStatus);
 
             button.setDisable(true);
 
         });
     }
 
-    public void drawGameStatus(GameStatus status, Field field) {
-        buttons.get(0).setText(field.getPlayer().toString());
-        buttons.get(1).setText(field.getPlayer().toString());
-        buttons.get(2).setText(field.getPlayer().toString());
-        buttons.get(3).setText(field.getPlayer().toString());
-        buttons.get(4).setText(field.getPlayer().toString());
-        buttons.get(5).setText(field.getPlayer().toString());
-        buttons.get(6).setText(field.getPlayer().toString());
-        buttons.get(7).setText(field.getPlayer().toString());
-        buttons.get(8).setText(field.getPlayer().toString());
+    public void drawGameStatus(GameStatus gameStatus) {
 
-        label.setText(status.getStatus().toString());
+        for (int i = 0; i < gameStatus.getFields().size(); i++) {
+
+            buttons.get(i).setText(gameStatus.getFields().get(i).getPlayer().toString());
+        }
+
+        label.setText(gameStatus.getStatus().toString());
     }
 }

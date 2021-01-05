@@ -23,8 +23,6 @@ public class TicTacToe extends Application {
     Button button8 = new Button();
     Button button9 = new Button();
 
-    Field field = new Field(Field.Player.EMPTY);
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -49,9 +47,6 @@ public class TicTacToe extends Application {
         Label label = new Label();
         label.setText("0");
 
-        Label label1 = new Label();
-        label1.setText("GAME ON");
-
 
         ButtonSetter buttonSetter = new ButtonSetter();
 
@@ -71,19 +66,17 @@ public class TicTacToe extends Application {
 
         Handler handler = new Handler(label, buttonList);
 
-        List<Field> fields = new ArrayList<>();
+        NewHandler newHandler = new NewHandler(label, buttonList, GameStatus.initialGameStatus());
 
-        NewHandler newHandler = new NewHandler(label, buttonList, GameStatus.initialGameStatus(), fields, field);
-
-        newHandler.mouseHandler(button1);
-        newHandler.mouseHandler(button2);
-        newHandler.mouseHandler(button3);
-        newHandler.mouseHandler(button4);
-        newHandler.mouseHandler(button5);
-        newHandler.mouseHandler(button6);
-        newHandler.mouseHandler(button7);
-        newHandler.mouseHandler(button8);
-        newHandler.mouseHandler(button9);
+        newHandler.mouseHandler(button1, 0);
+        newHandler.mouseHandler(button2, 1);
+        newHandler.mouseHandler(button3, 2);
+        newHandler.mouseHandler(button4, 3);
+        newHandler.mouseHandler(button5, 4);
+        newHandler.mouseHandler(button6, 5);
+        newHandler.mouseHandler(button7,6);
+        newHandler.mouseHandler(button8, 7);
+        newHandler.mouseHandler(button9,8);
 
         grid.add(button1, 0, 0);
         grid.add(button2, 1, 0);
@@ -95,7 +88,6 @@ public class TicTacToe extends Application {
         grid.add(button8, 1, 2);
         grid.add(button9, 2, 2);
         grid.add(label, 0, 3);
-        grid.add(label1, 2, 3);
 
         Scene scene = new Scene(grid);
         primaryStage.setTitle("Tic Tac Toe");
