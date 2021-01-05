@@ -84,7 +84,8 @@ public class GameStatus {
     }
 
     private boolean checkWinCondition(Field.Player player) {
-        boolean rowsWon = checkRows(0);
+        boolean rowsWon = checkRows();
+
         if (rowsWon) {
             return true;
         }
@@ -111,7 +112,19 @@ public class GameStatus {
 //        return true;
 //    }
 
-    private boolean checkRows(int indexAddition) {
+    private boolean checkRows() {
+
+            boolean row1won = checkRow(0);
+            boolean row2won = checkRow(3);
+            boolean row3won = checkRow(6);
+
+            if (row1won || row2won || row3won) {
+                return true;
+        }
+        return false;
+    }
+
+    private boolean checkRow(int indexAddition) {
 
             if (fields.get(indexAddition).getPlayer() == fields.get(indexAddition + 1).getPlayer() &&
                     fields.get(indexAddition + 1).getPlayer() == (fields.get(indexAddition + 2).getPlayer())) {
