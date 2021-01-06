@@ -7,7 +7,7 @@ import java.util.Random;
 public class RandomComputerMover implements ComputerMover {
 
 
-    public List<Field> makeMove(List<Field> currentFields) {
+    public void makeMove(List<Field> currentFields) {
 
         List<Integer> emptyIndexes = new ArrayList<>();
 
@@ -16,19 +16,12 @@ public class RandomComputerMover implements ComputerMover {
                 emptyIndexes.add(i);
             }
         }
+        if (emptyIndexes.isEmpty()) {
+            return;
+        }
 
         Random random = new Random();
         int indexToFill = emptyIndexes.get(random.nextInt(emptyIndexes.size()));
-        List<Field> newFields = new ArrayList<>();
-
-        for (int i = 0; i < currentFields.size(); i++) {
-
-            if (i == indexToFill) {
-                newFields.add(new Field(Field.Player.O));
-            } else {
-                newFields.add(currentFields.get(i));
-            }
-        }
-        return newFields;
+        currentFields.set(indexToFill, new Field(Field.Player.O));
     }
 }

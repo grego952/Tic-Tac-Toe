@@ -24,13 +24,23 @@ public class NewHandler {
 
         button.setOnMouseClicked(event -> {
 
-            GameStatus newGameStatus = gameStatus.makeMove(gameStatus, buttonIndex);
+            gameStatus.makeMove(buttonIndex);
 
-            this.gameStatus = newGameStatus;
-
-            drawGameStatus(newGameStatus);
+            drawGameStatus(gameStatus);
 
             button.setDisable(true);
+
+            for (Button button1 : buttons) {
+                if (button1.getText().equals("O")) {
+                    button1.setDisable(true);
+                }
+            }
+            for (int i = 0; i < buttons.size(); i++) {
+                if (label.getText().equals("X_WINS") || label.getText().equals("O_WINS")) {
+                    buttons.get(i).setDisable(true);
+                }
+
+            }
 
         });
     }
