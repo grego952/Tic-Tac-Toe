@@ -6,12 +6,14 @@ import java.util.List;
 public class GameStatus {
 
     private Status status;
+    private Status status1;
     private List<Field> fields;
     private int round;
     private final ComputerMover computerMover;
 
-    public GameStatus(Status status, List<Field> fields, int round, ComputerMover computerMover) {
+    public GameStatus(Status status, Status status1, List<Field> fields, int round, ComputerMover computerMover) {
         this.status = status;
+        this.status1 = status1;
         this.fields = fields;
         this.round = round;
         this.computerMover = computerMover;
@@ -43,7 +45,7 @@ public class GameStatus {
 
         ComputerMover computerMover = new RandomComputerMover();
 
-        return new GameStatus(Status.GAME_ON, fields, 1, computerMover);
+        return new GameStatus(Status.GAME_ON, Status.GAME_ON, fields, 1, computerMover);
     }
 
     private static List<Field> initializeFields() {
@@ -62,8 +64,9 @@ public class GameStatus {
         newFields.set(clickedField, new Field(Field.Player.X));
         Status newStatus = current.calculateStatus();
         List<Field> newFieldsWithComputerMove = computerMover.makeMove(newFields);
+        Status newStatusAfterComputerMove = current.calculateStatus();
 
-        return new GameStatus(newStatus, newFieldsWithComputerMove, round++, computerMover);
+        return new GameStatus(newStatus, newStatusAfterComputerMove, newFieldsWithComputerMove, round++, computerMover);
 
     }
 
