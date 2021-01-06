@@ -84,52 +84,69 @@ public class GameStatus {
     }
 
     private boolean checkWinCondition(Field.Player player) {
-        boolean rowsWon = checkRows();
+        boolean rowsWon = checkRows(player);
 
         if (rowsWon) {
             return true;
         }
-//        boolean columnsWon = checkColumns(player);
-//        if (columnsWon) {
-//            return true;
-//        }
-//        boolean diagonallyWon = checkDiagonally(player);
-//
-//        if (diagonallyWon) {
-//            return true;
-//        }
-        return false;
-    }
+        boolean columnsWon = checkColumns(player);
+        if (columnsWon) {
+            return true;
+        }
+        boolean diagonallyWon = checkDiagonally(player);
 
-//    private boolean checkDiagonally(Field.Player player) {
-//        if (fields.get(0).getPlayer() != player &&
-//                fields.get(3).getPlayer() != player &&
-//                fields.get(8).getPlayer() != player || fields.get(2).getPlayer() != player &&
-//                fields.get(3).getPlayer() != player &&
-//                fields.get(6).getPlayer() != player) {
-//            return false;
-//        }
-//        return true;
-//    }
-
-    private boolean checkRows() {
-
-            boolean row1won = checkRow(0);
-            boolean row2won = checkRow(3);
-            boolean row3won = checkRow(6);
-
-            if (row1won || row2won || row3won) {
-                return true;
+        if (diagonallyWon) {
+            return true;
         }
         return false;
     }
 
-    private boolean checkRow(int indexAddition) {
+    private boolean checkColumns(Field.Player player) {
 
-            if (fields.get(indexAddition).getPlayer() == fields.get(indexAddition + 1).getPlayer() &&
-                    fields.get(indexAddition + 1).getPlayer() == (fields.get(indexAddition + 2).getPlayer())) {
+        for (int i = 0; i < 3; i++) {
+
+            boolean columnWon = checkColumn(player, i);
+
+            if (columnWon) {
                 return true;
             }
+        }
         return false;
+    }
+
+    private boolean checkColumn(Field.Player player, int indexAddition) {
+
+        return fields.get(indexAddition).getPlayer() == player &&
+                fields.get(indexAddition + 3).getPlayer() == player
+                && fields.get(indexAddition + 6).getPlayer() == player;
+    }
+
+    private boolean checkDiagonally(Field.Player player) {
+        return fields.get(0).getPlayer() == player &&
+                fields.get(4).getPlayer() == player &&
+                fields.get(8).getPlayer() == player || fields.get(2).getPlayer() == player &&
+                fields.get(4).getPlayer() == player &&
+                fields.get(6).getPlayer() == player;
+    }
+
+    private boolean checkRows(Field.Player player) {
+
+
+        for (int i = 0; i < fields.size(); i += 3) {
+
+            boolean rowWon = checkRow(player, i);
+
+            if (rowWon) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean checkRow(Field.Player player, int indexAddition) {
+
+        return fields.get(indexAddition).getPlayer() == player &&
+                fields.get(indexAddition + 1).getPlayer() == player &&
+                fields.get(indexAddition + 2).getPlayer() == player;
     }
 }
