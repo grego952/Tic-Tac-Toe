@@ -25,23 +25,14 @@ public class GameStatus {
         return fields;
     }
 
-    public int getRound() {
-        return round;
-    }
-
-    public ComputerMover getComputerMover() {
-        return computerMover;
-    }
-
     public enum Status {
         GAME_ON, O_WINS, X_WINS, DRAW
     }
 
-    public static GameStatus initialGameStatus() {
+    public static GameStatus initialGameStatus(ComputerMover computerMover) {
 
         List<Field> fields = initializeFields();
 
-        ComputerMover computerMover = new RandomComputerMover();
 
         return new GameStatus(Status.GAME_ON, fields, 1, computerMover);
     }

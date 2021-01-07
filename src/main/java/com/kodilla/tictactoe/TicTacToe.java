@@ -64,7 +64,7 @@ public class TicTacToe extends Application {
         grid.setVgap(5.5);
         grid.setAlignment(Pos.CENTER);
 
-        NewHandler newHandler = new NewHandler(label, buttonList, GameStatus.initialGameStatus());
+        NewHandler newHandler = new NewHandler(label, buttonList, GameStatus.initialGameStatus(new RandomComputerMover()));
 
         newHandler.mouseHandler(button1, 0);
         newHandler.mouseHandler(button2, 1);

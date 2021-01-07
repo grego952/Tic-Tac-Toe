@@ -33,15 +33,10 @@ public class NewHandler {
             for (Button button1 : buttons) {
                 if (button1.getText().equals("O")) {
                     button1.setDisable(true);
+                } if (label.getText().equals("X_WINS") || label.getText().equals("O_WINS")) {
+                    button1.setDisable(true);
                 }
             }
-            for (int i = 0; i < buttons.size(); i++) {
-                if (label.getText().equals("X_WINS") || label.getText().equals("O_WINS")) {
-                    buttons.get(i).setDisable(true);
-                }
-
-            }
-
         });
     }
 
